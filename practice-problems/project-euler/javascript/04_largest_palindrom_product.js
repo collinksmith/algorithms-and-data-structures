@@ -14,9 +14,12 @@ function largestProd(n) {
   return largest;
 }
 
-function checkNums(num1, num2) {
+function checkNums(num1, num2, largest) {
   while (num1 > 0) {
     newRes = num1 * num2;
+    if (largest !== undefined && newRes < largest) {
+      return -1;
+    }
     if (isPalindrome(newRes.toString())) {
       return newRes;
     }
@@ -32,4 +35,4 @@ function isPalindrome(str) {
   return true;
 }
 
-console.log(largestProd(3));
+console.log(largestProd(5));
