@@ -7,9 +7,8 @@ class ListNode
 end
 
 # Create list for testing
-def create_list
+def create_list(vals)
   start = ListNode.new(1)
-  vals = [2,3,4,5,6,7]
   l = start
   vals.each do |val|
     new_node = ListNode.new(val)
@@ -20,13 +19,15 @@ def create_list
   start
 end
 
-def print_values(l)
-  while l
-    print "#{l.value},"
-    l = l.next
+if __FILE__ == $PROGRAM_NAME
+  def print_values(l)
+    while l
+      print "#{l.value},"
+      l = l.next
+    end
+    puts
   end
-  puts
-end
 
-list = create_list
-print_values(list)
+  list = create_list([2,3,4,5,6,7])
+  print_values(list)
+end
