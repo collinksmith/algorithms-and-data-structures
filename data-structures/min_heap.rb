@@ -31,9 +31,11 @@ class MinHeap
     items.to_s
   end
 
-  private
+  protected
 
   attr_accessor :items
+
+  private
 
   # Efficient building algorithm. Runs in O(n)
   # A naive implementation of successively inserting each element runs in O(nlogn)
@@ -44,21 +46,21 @@ class MinHeap
 
   def sift_up(i)
     parent_i = parent(i)
-    return if i == 0 || items[parent_i] < items[i]
-    items[i], items[parent_i] = items[parent_i], items[i]
+    return if i == 0 || value(parent_i) < value(i)
+    items[i], items[parent_i] = value(parent_i), value(i)
     sift_up(parent_i)
   end
 
   def sift_down(i)
     return if leaf?(i) || satisfied?(i)
     left, right = left_child(i), right_child(i)
-    smaller = !items[right] || items[left] < items[right] ? left : right
-    items[i], items[smaller] = items[smaller], items[i]
+    smaller = !items[right] || value(left) < value(right) ? left : right
+    items[i], items[smaller] = value(smaller), value(i)
     sift_down(smaller)
   end
 
   def satisfied?(i)
-    val, left_val, right_val = items[i], items[left_child(i)], items[right_child(i)]
+    val, left_val, right_val = value(i), value(left_child(i)), value(right_child(i))
     !left_val || val < left_val && (!right_val || val < right_val)
   end
 
@@ -76,6 +78,10 @@ class MinHeap
 
   def right_child(i)
     i * 2 + 2
+  end
+
+  def value(i)
+    items[i]
   end
 end
 
