@@ -20,11 +20,17 @@ class MapMinHeap < MinHeap
 
   # O(log n)
   def decrease(key, val)
-    # TODO
+    i = map[key]
+    items[i][1] = val
+    sift_up(i)
   end
 
   def to_s
     items.map { |el| el[1] }.to_s
+  end
+
+  def inspect
+    items
   end
 
   private
@@ -73,10 +79,13 @@ if __FILE__ == $PROGRAM_NAME
   p heap.contains?('b') # true
   heap.extract_min
   p heap.contains?('b') # false
+  p heap
+  heap.decrease('f', 1)
+  p heap
   heap.insert(['j',2])
   heap.insert(['k',777])
   heap.insert(['l',0])
-  heap.size.times { print "#{heap.extract_min[1]} " } # 0 1 2 2 3 4 5 6 7 9 9 777
+  heap.size.times { print "#{heap.extract_min[1]} " } # 0 1 2 2 3 4 5 6 7 9 777
   puts
   puts heap # []
 end
