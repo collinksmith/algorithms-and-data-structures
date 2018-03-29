@@ -3,11 +3,13 @@ class MinHeap
     build(a)
   end
 
+  # O(log n)
   def insert(value)
     items.push(value)
     sift_up(size - 1)
   end
 
+  # O(log n)
   def extract_min
     return if size == 0
     return items.pop if size == 1
