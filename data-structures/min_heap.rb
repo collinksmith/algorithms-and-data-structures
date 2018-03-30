@@ -84,14 +84,3 @@ class MinHeap
     items[i]
   end
 end
-
-if __FILE__ == $PROGRAM_NAME
-  heap = MinHeap.new([6,1,9,2,3,9,5,4,7])
-  puts heap.get_min # 1
-  heap.insert(2)
-  heap.insert(777)
-  heap.insert(0)
-  heap.size.times { print "#{heap.extract_min} " } # 0 1 2 2 3 4 5 6 7 9 9 777
-  puts
-  puts heap # []
-end
