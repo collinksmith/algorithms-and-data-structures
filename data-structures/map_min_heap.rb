@@ -26,9 +26,10 @@ class MapMinHeap < MinHeap
   # O(log n)
   def decrease(key, val)
     i = map[key]
-    return if items[i][1] <= val
+    return false if items[i][1] <= val
     items[i][1] = val
     sift_up(i)
+    true
   end
 
   def to_s
