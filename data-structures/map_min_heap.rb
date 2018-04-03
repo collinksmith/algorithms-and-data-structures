@@ -7,7 +7,12 @@ class MapMinHeap < MinHeap
   end
 
   def extract_min
-    val = super
+    return if size == 0
+    return items.pop if size == 1
+    val = items[0]
+    items[0] = items.pop
+    map[items[0][0]] = 0
+    sift_down(0)
     return if !val
     map.delete(val[0])
     val
@@ -21,6 +26,7 @@ class MapMinHeap < MinHeap
   # O(log n)
   def decrease(key, val)
     i = map[key]
+    return if items[i][1] <= val
     items[i][1] = val
     sift_up(i)
   end
@@ -47,8 +53,8 @@ class MapMinHeap < MinHeap
     parent_i = parent(i)
     return if i == 0 || value(parent_i) < value(i)
     items[i], items[parent_i] = items[parent_i], items[i]
-    map[items[i][0]] = parent_i
-    map[items[parent_i][0]] = i
+    map[items[i][0]] = i
+    map[items[parent_i][0]] = parent_i
     sift_up(parent_i)
   end
 
@@ -57,8 +63,8 @@ class MapMinHeap < MinHeap
     left, right = left_child(i), right_child(i)
     smaller = !items[right] || value(left) < value(right) ? left : right
     items[i], items[smaller] = items[smaller], items[i]
-    map[items[i][0]] = smaller
-    map[items[smaller][0]] = i
+    map[items[i][0]] = i
+    map[items[smaller][0]] = smaller
     sift_down(smaller)
   end
 
@@ -82,10 +88,14 @@ if __FILE__ == $PROGRAM_NAME
   p heap
   heap.decrease('f', 1)
   p heap
+  heap.decrease('g', 0)
+  p heap
   heap.insert(['j',2])
   heap.insert(['k',777])
   heap.insert(['l',0])
-  heap.size.times { print "#{heap.extract_min[1]} " } # 0 1 2 2 3 4 5 6 7 9 777
+
+  # ["l", 0] ["g", 0] ["f", 1] ["d", 2] ["j", 2] ["e", 3] ["h", 4] ["a", 6] ["i", 7] ["c", 9] ["k", 777]
+  heap.size.times { print "#{heap.extract_min} " }
   puts
   puts heap # []
 end
