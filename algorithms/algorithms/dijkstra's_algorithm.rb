@@ -51,28 +51,3 @@ def get_path(parents, end_node)
 
   path.reverse
 end
-
-if __FILE__ == $PROGRAM_NAME
-
-  # Visual representation of the test graph:
-  #    B -2- C
-  #   /      |
-  #  5       3
-  #  /       |
-  # A   -9-  D
-  #  \       |
-  #  2       2
-  #   \      |
-  #    E -3- F
-
-  graph = [
-    [[1, 5], [3, 9], [4, 2]],
-    [[0, 5], [2, 2]],
-    [[1, 2], [3, 3]],
-    [[0, 9], [2, 3], [5, 2]],
-    [[0, 2], [5, 3]],
-    [[3, 2], [4, 3]]
-  ]
-
-  p shortest_path(graph, 4, 2) # { path: [4,5,3,2], distance: 8}
-end
