@@ -1,7 +1,7 @@
 require_relative './min_heap'
 
 class MapMinHeap < MinHeap
-  def initialize(a)
+  def initialize(a = [])
     self.map = {}
     super(a)
   end
@@ -78,25 +78,4 @@ class MapMinHeap < MinHeap
     el = items[i]
     el && el[1]
   end
-end
-
-if __FILE__ == $PROGRAM_NAME
-  heap = MapMinHeap.new([['a',6],['b',1],['c',9],['d',2],['e',3],['f',9],['g',5],['h',4],['i',7]])
-  p heap.get_min # ['b', 1]
-  p heap.contains?('b') # true
-  heap.extract_min
-  p heap.contains?('b') # false
-  p heap
-  heap.decrease('f', 1)
-  p heap
-  heap.decrease('g', 0)
-  p heap
-  heap.insert(['j',2])
-  heap.insert(['k',777])
-  heap.insert(['l',0])
-
-  # ["l", 0] ["g", 0] ["f", 1] ["d", 2] ["j", 2] ["e", 3] ["h", 4] ["a", 6] ["i", 7] ["c", 9] ["k", 777]
-  heap.size.times { print "#{heap.extract_min} " }
-  puts
-  puts heap # []
 end
